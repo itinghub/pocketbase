@@ -47,6 +47,7 @@ func (dao *Dao) ExpandRecords(records []*models.Record, expands []string, optFet
 
 	for _, expand := range normalized {
 		if err := dao.expandRecords(records, expand, optFetchFunc, 1); err != nil {
+
 			failed[expand] = err
 		}
 	}

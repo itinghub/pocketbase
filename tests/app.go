@@ -83,6 +83,10 @@ func (t *TestApp) registerEventCall(name string) error {
 // It is the caller's responsibility to call `app.Cleanup()`
 // when the app is no longer needed.
 func NewTestApp(optTestDataDir ...string) (*TestApp, error) {
+	return NewTestAppWithFlag(false, optTestDataDir...)
+}
+
+func NewTestAppWithFlag(flag bool, optTestDataDir ...string) (*TestApp, error) {
 	var testDataDir string
 	if len(optTestDataDir) == 0 || optTestDataDir[0] == "" {
 		// fallback to the default test data directory
@@ -100,6 +104,7 @@ func NewTestApp(optTestDataDir ...string) (*TestApp, error) {
 	app := core.NewBaseApp(core.BaseAppConfig{
 		DataDir:       tempDir,
 		EncryptionEnv: "pb_test_env",
+		IsDev:         flag,
 	})
 
 	// load data dir and db connections
