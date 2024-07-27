@@ -6,7 +6,7 @@ import (
 )
 
 func InitBook(app core.App, e *echo.Echo) {
-	api := e.Group("/books", BookContextMiddleware(app))
+	api := e.Group("/book", BookContextMiddleware(app))
 	bindBooksApi(app, api)
 }
 
@@ -27,7 +27,8 @@ func (api *booksApi) GetBookGroups(c echo.Context) error {
 	}
 
 	dao.ExpandRecords(bookGroups, []string{"books"}, nil)
-	return c.JSON(200, []string{"group1", "group2"})
+	result := convertToGroupResult(bookGroups)
+	return c.JSON(200, &result)
 }
 
 func BookContextMiddleware(app core.App) echo.MiddlewareFunc {

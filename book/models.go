@@ -1,46 +1,67 @@
 package book
 
-type DBBook struct {
-	ID          string `db:"id"`
-	Name        string `db:"name"`
-	Description string `db:"description"`
-	Cover       string `db:"cover"`
-	Narrator    string `db:"narrator"`
-	Publisher   string `db:"publisher"`
-	Price       int    `db:"price"`
-}
+import (
+	"github.com/pocketbase/pocketbase/models"
+)
 
-// DBGroup is an intermediate struct that matches the database schema
-type DBGroup struct {
-	ID       string `db:"id"`
-	Name     string `db:"name"`
-	ShowType int    `db:"showType"`
-}
+// type DBBook struct {
+// 	ID          string `db:"id"`
+// 	Name        string `db:"name"`
+// 	Description string `db:"description"`
+// 	Cover       string `db:"cover"`
+// 	Narrator    string `db:"narrator"`
+// 	Publisher   string `db:"publisher"`
+// 	Price       int    `db:"price"`
+// }
 
-func convertDBBookToProto(dbBook DBBook) *Basic {
+// // DBGroup is an intermediate struct that matches the database schema
+// type DBGroup struct {
+// 	models.Record
+// 	ID       string `db:"id"`
+// 	Name     string `db:"name"`
+// 	ShowType int    `db:"showType"`
+// 	Books   []DBBook `db:"books"`
+// }
+
+func pb_toBookBasic(record *models.Record) *Basic {
 	return &Basic{
-		Id:          dbBook.ID,
-		Name:        dbBook.Name,
-		Description: dbBook.Description,
-		Cover:       dbBook.Cover,
-		Narrator:    dbBook.Narrator,
-		Publisher:   dbBook.Publisher,
-		Price:       uint32(dbBook.Price),
+		Id:          record.GetId(),
+		Name:        record.GetString("name"),
+		Description: record.GetString("description"),
+		Cover:       record.GetString("cover"),
+		Narrator:    record.GetString("narrator"),
+		Publisher:   record.GetString("publisher"),
+		Price:       uint32(record.GetInt("price")),
 	}
 }
-
-func convertDBGroupToProto(dbGroup DBGroup, books []*Basic) *Group {
+func pb_toBookGroup(groupRecord *models.Record, expanedBooks []*models.Record) *Group {
 	group := &Group{
-		Id:    dbGroup.ID,
-		Name:  dbGroup.Name,
-		Books: books,
+		Id:   groupRecord.GetId(),
+		Name: groupRecord.GetString("name"),
 	}
 
-	if dbGroup.ShowType == 2 {
+	switch groupRecord.GetInt("showType") {
+	case 2:
 		group.ShowType = Group_TwoColumn
-	} else {
+	default:
 		group.ShowType = Group_OneColumn
 	}
 
+	protoBooks := make([]*Basic, len(expanedBooks))
+	for i, book := range expanedBooks {
+		protoBooks[i] = pb_toBookBasic(book)
+	}
+	group.Books = protoBooks
 	return group
+}
+
+func convertToGroupResult(groupRecords []*models.Record) GroupResult {
+	protoGroups := make([]*Group, len(groupRecords))
+	for i, record := range groupRecords {
+		protoGroups[i] = pb_toBookGroup(record, record.ExpandedAll("books"))
+	}
+
+	return GroupResult{
+		Groups: protoGroups,
+	}
 }
