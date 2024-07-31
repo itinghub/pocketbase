@@ -31,7 +31,7 @@ func TestBookApp(t *testing.T) {
 		{
 			Name:           "empty data",
 			Method:         http.MethodGet,
-			Url:            "/books/groups",
+			Url:            "/book/groups",
 			Body:           strings.NewReader(``),
 			BeforeTestFunc: beforeTestFunc(),
 			TestAppFactory: appFactory(),

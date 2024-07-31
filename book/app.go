@@ -30,12 +30,3 @@ func (api *booksApi) GetBookGroups(c echo.Context) error {
 	result := convertToGroupResult(bookGroups)
 	return c.JSON(200, &result)
 }
-
-func BookContextMiddleware(app core.App) echo.MiddlewareFunc {
-	return func(next echo.HandlerFunc) echo.HandlerFunc {
-		return func(c echo.Context) error {
-			cc := &CustomContext{Context: c}
-			return next(cc)
-		}
-	}
-}
