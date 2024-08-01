@@ -55,13 +55,13 @@ func pb_toBookGroup(groupRecord *models.Record, expanedBooks []*models.Record) *
 	return group
 }
 
-func convertToGroupResult(groupRecords []*models.Record) GroupResult {
+func convertToGroupResult(groupRecords []*models.Record) GroupListResp {
 	protoGroups := make([]*Group, len(groupRecords))
 	for i, record := range groupRecords {
 		protoGroups[i] = pb_toBookGroup(record, record.ExpandedAll("books"))
 	}
 
-	return GroupResult{
-		Groups: protoGroups,
+	return GroupListResp{
+		Items: protoGroups,
 	}
 }
