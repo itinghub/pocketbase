@@ -43,9 +43,10 @@ type ApiScenario struct {
 
 	// test hooks
 	// ---
-	TestAppFactory func(t *testing.T) *TestApp
-	BeforeTestFunc func(t *testing.T, app *TestApp, e *echo.Echo)
-	AfterTestFunc  func(t *testing.T, app *TestApp, res *http.Response)
+	TestAppFactory           func(t *testing.T) *TestApp
+	BeforeTestFunc           func(t *testing.T, app *TestApp, e *echo.Echo)
+	AfterTestFunc            func(t *testing.T, app *TestApp, res *http.Response)
+	CheckResponseContentFunc func(t *testing.T, app *TestApp, res *http.Response, body string, api ApiScenario)
 }
 
 // Test executes the test scenario.
@@ -159,6 +160,10 @@ func (scenario *ApiScenario) test(t *testing.T) {
 				t.Errorf("Didn't expect %v in response body \n%v", item, normalizedBody)
 				break
 			}
+		}
+
+		if scenario.CheckResponseContentFunc != nil {
+			scenario.CheckResponseContentFunc(t, testApp, res, normalizedBody, *scenario)
 		}
 	}
 
