@@ -16,6 +16,7 @@ func InitBook(app core.App, e *echo.Echo) {
 		req    interface{}
 		resp   interface{}
 	}{
+		{"GET", "/api/collections/repos/records", &ListReq{}, &RepoListResp{}},
 		{"GET", "/api/collections/book_groups/records", &ListReq{}, &GroupListResp{}},
 		{"GET", "/api/collections/vbooks_basic/records", &ListReq{}, &BookListResp{}},
 	}

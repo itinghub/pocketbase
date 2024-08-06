@@ -1,114 +1,28 @@
 syntax = "proto3";
 import "google/protobuf/struct.proto";
 
-/*
- pocketbase 数据表
-生成sql时要默认规则如下,除非表中专门指定，否则以这里为准：
-* 为每张表自动添加下面几个字段（格式为字段名：类型、默认值、是否可为空）：
-    1. id: TEXT PRIMARY KEY,DEFAULT ('r' || lower(hex(randomblob(7))))、 NOT NULL
-    2. created: TEXT,strftime('%Y-%m-%d %H:%M:%fZ')、NOT NULL
-    3. updated: 同created
-* 所有字段均非空， string 默认值为空字符串 ''， int 为 0，bool 为 false
-* 其他规则 
-    1. 建表 sql,先 default, 然后 NOT NULL
-    2. json类型生成 JSON DEFAULT '[]' NOT NULL
-    3. 创建唯一索引 用 CREATE UNIQUE INDEX idx_ 开头
-
------- 
- 1. users {
- //可空规则：sting 类型 除name 外，其他字段均可空
- //索引: 
-        username: string // nickname
-        mobile: string
-        password_hash: string
-        password_salt: string
-        creditsRemain: uint32,  // 剩余点数
-  }
- 2. book {
-////书籍
-//可控规则： narrator、publisher、publishDate、trailHash可空
-        name: string
-        description: string
-        cover: string
-        narrator: string
-        publisher: string
-        price: uint32  默认 0  //扣除点数，0表示免费
-        publishDate: string // yyyy-MM
-        type: uint32    // 0: 默认(tingyue), 1: 图片点读书, 2: html
-        ossHashTrail: string //免费时为空，收费时为 试读资源文件在 oss 上的 hash
-        ossHash: string    //资源文件在 oss 上的 hash
-        assetsSize: uint32 //hash 文件的图片、音频等资源文件大小
-    }
-//// 订阅记录
-//索引：userId+bookId+status 联合唯一索引
-
- 3. subscription {
-        userId: string
-        bookId: string
-        endTime: date_time
-        credit_history_id: string
-        status: uint32//1 已撤销
-    }
-////点数变动记录
-/索引：userId索引
-  4. credit_history {
-        userId: string
-        bookId: string
-        num: uint32
-        type: uint32 // 0 购买书籍
-   }
-///// 验证码
-//可空规则： mobile、email、可空
-//索引：userId+type+expireTime联合索引
-
-  5. verification_code {
-        userId: string
-        code: string
-        mobile: string
-        email: string
-        type: uint32 // 注册、找回密码、修改密码、绑定手机、绑定邮箱、绑定微信
-        status: uint32
-        expireTime: date_time
-    }
- ///// 书籍目录（只有一级）
- //可空规则： description、books 可空
- //索引：status+position联合索引
-  6. book_group_info {
-        name: string
-        description: string
-        status: uint32   // 0: 未发布, 1: 已发布
-        position: uint32 // 排序,0 为最前
-        show_type: uint32 // 0: 一行一个, 1: 一行两个
-        books: json,默认 [] // book id list, 逗号分隔
-    }
-//// 帖子
-//先保留，测试用
- 7. posts {
-    images: json,默认[]
-    text : string
-    user: string
-    liked: json,默认[]
- }
-
-*/
-
-//BK 开头，表示和 PocketBase 共享一套模型
-
 //对应 pocketbase 表： book_info
 package book;
 option go_package = "iting.com/book";
+message Repo {
+    string name = 1;
+    repeated string cdnUrls = 2;
+}
 
 message Basic {
     string id = 1;
     string name = 2;
-    string description = 3;
-    string cover = 4;
-    string narrator = 6;
-    string publisher = 7;
-    string releaseDate = 8;//e.g 2018-01-01
-    uint32 price = 9;
+    string zhName = 3;
+    string description = 4;
+    string author = 5;
+    string cover = 6;
+    uint32 price = 7;
+    
+    string narrator = 10;
+    string publisher = 11;
+    string releaseDate = 12;//e.g 2018-01-01
     //只有音频的时候才有
-    uint32 duraionSum = 10;
+    uint32 duraionSum = 13;
 }
 
 // 对应 pocketbase 表 book_info
@@ -145,6 +59,9 @@ message ListReq {
 message ItemReq {
     string expand = 1;
     string fields = 2;
+}
+message RepoListResp {
+    repeated Repo items = 1;
 }
 
 message GroupListResp {
