@@ -1,5 +1,4 @@
 syntax = "proto3";
-import "google/protobuf/struct.proto";
 
 //对应 pocketbase 表： book_info
 package book;
@@ -24,26 +23,20 @@ message Basic {
     //只有音频的时候才有
     uint32 duraionSum = 13;
 }
-
-// 对应 pocketbase 表 book_info
-
-message RespErr {
-    uint32 code = 5;
-    uint32 message_ = 6 [json_name = "message"];;
-    google.protobuf.Struct data = 7;
-}
-
+ 
 message Group {
     string id = 1;
     string name = 2;
     ShowType showType = 3;
-    repeated Basic books = 4;
-    RespErr err = 5;
+    Expand expand = 4;
     enum ShowType {
       OneColumn = 0;
       TwoColumn = 1;
     }
 
+    message Expand {
+        repeated Basic books = 1;
+    }
 }
 
 message ListReq {

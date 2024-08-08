@@ -11,7 +11,6 @@ package book
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	structpb "google.golang.org/protobuf/types/known/structpb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -66,7 +65,7 @@ func (x Group_ShowType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Group_ShowType.Descriptor instead.
 func (Group_ShowType) EnumDescriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{3, 0}
+	return file_pb_model_proto_rawDescGZIP(), []int{2, 0}
 }
 
 type Repo struct {
@@ -252,69 +251,6 @@ func (x *Basic) GetDuraionSum() uint32 {
 	return 0
 }
 
-type RespErr struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Code     uint32           `protobuf:"varint,5,opt,name=code,proto3" json:"code,omitempty"`
-	Message_ uint32           `protobuf:"varint,6,opt,name=message_,json=message,proto3" json:"message_,omitempty"`
-	Data     *structpb.Struct `protobuf:"bytes,7,opt,name=data,proto3" json:"data,omitempty"`
-}
-
-func (x *RespErr) Reset() {
-	*x = RespErr{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *RespErr) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RespErr) ProtoMessage() {}
-
-func (x *RespErr) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RespErr.ProtoReflect.Descriptor instead.
-func (*RespErr) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *RespErr) GetCode() uint32 {
-	if x != nil {
-		return x.Code
-	}
-	return 0
-}
-
-func (x *RespErr) GetMessage_() uint32 {
-	if x != nil {
-		return x.Message_
-	}
-	return 0
-}
-
-func (x *RespErr) GetData() *structpb.Struct {
-	if x != nil {
-		return x.Data
-	}
-	return nil
-}
-
 type Group struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -323,14 +259,13 @@ type Group struct {
 	Id       string         `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name     string         `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	ShowType Group_ShowType `protobuf:"varint,3,opt,name=showType,proto3,enum=book.Group_ShowType" json:"showType,omitempty"`
-	Books    []*Basic       `protobuf:"bytes,4,rep,name=books,proto3" json:"books,omitempty"`
-	Err      *RespErr       `protobuf:"bytes,5,opt,name=err,proto3" json:"err,omitempty"`
+	Expand   *Group_Expand  `protobuf:"bytes,4,opt,name=expand,proto3" json:"expand,omitempty"`
 }
 
 func (x *Group) Reset() {
 	*x = Group{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[3]
+		mi := &file_pb_model_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -343,7 +278,7 @@ func (x *Group) String() string {
 func (*Group) ProtoMessage() {}
 
 func (x *Group) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[3]
+	mi := &file_pb_model_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -356,7 +291,7 @@ func (x *Group) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Group.ProtoReflect.Descriptor instead.
 func (*Group) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{3}
+	return file_pb_model_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Group) GetId() string {
@@ -380,16 +315,9 @@ func (x *Group) GetShowType() Group_ShowType {
 	return Group_OneColumn
 }
 
-func (x *Group) GetBooks() []*Basic {
+func (x *Group) GetExpand() *Group_Expand {
 	if x != nil {
-		return x.Books
-	}
-	return nil
-}
-
-func (x *Group) GetErr() *RespErr {
-	if x != nil {
-		return x.Err
+		return x.Expand
 	}
 	return nil
 }
@@ -411,7 +339,7 @@ type ListReq struct {
 func (x *ListReq) Reset() {
 	*x = ListReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[4]
+		mi := &file_pb_model_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -424,7 +352,7 @@ func (x *ListReq) String() string {
 func (*ListReq) ProtoMessage() {}
 
 func (x *ListReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[4]
+	mi := &file_pb_model_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -437,7 +365,7 @@ func (x *ListReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListReq.ProtoReflect.Descriptor instead.
 func (*ListReq) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{4}
+	return file_pb_model_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ListReq) GetPage() uint32 {
@@ -501,7 +429,7 @@ type ItemReq struct {
 func (x *ItemReq) Reset() {
 	*x = ItemReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[5]
+		mi := &file_pb_model_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -514,7 +442,7 @@ func (x *ItemReq) String() string {
 func (*ItemReq) ProtoMessage() {}
 
 func (x *ItemReq) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[5]
+	mi := &file_pb_model_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -527,7 +455,7 @@ func (x *ItemReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ItemReq.ProtoReflect.Descriptor instead.
 func (*ItemReq) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{5}
+	return file_pb_model_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ItemReq) GetExpand() string {
@@ -555,7 +483,7 @@ type RepoListResp struct {
 func (x *RepoListResp) Reset() {
 	*x = RepoListResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[6]
+		mi := &file_pb_model_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -568,7 +496,7 @@ func (x *RepoListResp) String() string {
 func (*RepoListResp) ProtoMessage() {}
 
 func (x *RepoListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[6]
+	mi := &file_pb_model_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -581,7 +509,7 @@ func (x *RepoListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RepoListResp.ProtoReflect.Descriptor instead.
 func (*RepoListResp) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{6}
+	return file_pb_model_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *RepoListResp) GetItems() []*Repo {
@@ -606,7 +534,7 @@ type GroupListResp struct {
 func (x *GroupListResp) Reset() {
 	*x = GroupListResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[7]
+		mi := &file_pb_model_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -619,7 +547,7 @@ func (x *GroupListResp) String() string {
 func (*GroupListResp) ProtoMessage() {}
 
 func (x *GroupListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[7]
+	mi := &file_pb_model_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -632,7 +560,7 @@ func (x *GroupListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GroupListResp.ProtoReflect.Descriptor instead.
 func (*GroupListResp) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{7}
+	return file_pb_model_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GroupListResp) GetItems() []*Group {
@@ -685,7 +613,7 @@ type BookListResp struct {
 func (x *BookListResp) Reset() {
 	*x = BookListResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[8]
+		mi := &file_pb_model_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -698,7 +626,7 @@ func (x *BookListResp) String() string {
 func (*BookListResp) ProtoMessage() {}
 
 func (x *BookListResp) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[8]
+	mi := &file_pb_model_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -711,7 +639,7 @@ func (x *BookListResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BookListResp.ProtoReflect.Descriptor instead.
 func (*BookListResp) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{8}
+	return file_pb_model_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *BookListResp) GetItems() []*Basic {
@@ -764,7 +692,7 @@ type FileInfo struct {
 func (x *FileInfo) Reset() {
 	*x = FileInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[9]
+		mi := &file_pb_model_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -777,7 +705,7 @@ func (x *FileInfo) String() string {
 func (*FileInfo) ProtoMessage() {}
 
 func (x *FileInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[9]
+	mi := &file_pb_model_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -790,7 +718,7 @@ func (x *FileInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileInfo.ProtoReflect.Descriptor instead.
 func (*FileInfo) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{9}
+	return file_pb_model_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *FileInfo) GetOssHash() string {
@@ -830,7 +758,7 @@ type Model struct {
 func (x *Model) Reset() {
 	*x = Model{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_pb_model_proto_msgTypes[10]
+		mi := &file_pb_model_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -843,7 +771,7 @@ func (x *Model) String() string {
 func (*Model) ProtoMessage() {}
 
 func (x *Model) ProtoReflect() protoreflect.Message {
-	mi := &file_pb_model_proto_msgTypes[10]
+	mi := &file_pb_model_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -856,7 +784,7 @@ func (x *Model) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model.ProtoReflect.Descriptor instead.
 func (*Model) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10}
+	return file_pb_model_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *Model) GetBasicInfo() *Basic {
@@ -890,6 +818,53 @@ func (x *Model) GetPages() []*Model_Page {
 func (x *Model) GetAdditionalInfo() map[string]string {
 	if x != nil {
 		return x.AdditionalInfo
+	}
+	return nil
+}
+
+type Group_Expand struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Books []*Basic `protobuf:"bytes,1,rep,name=books,proto3" json:"books,omitempty"`
+}
+
+func (x *Group_Expand) Reset() {
+	*x = Group_Expand{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_pb_model_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Group_Expand) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Group_Expand) ProtoMessage() {}
+
+func (x *Group_Expand) ProtoReflect() protoreflect.Message {
+	mi := &file_pb_model_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Group_Expand.ProtoReflect.Descriptor instead.
+func (*Group_Expand) Descriptor() ([]byte, []int) {
+	return file_pb_model_proto_rawDescGZIP(), []int{2, 0}
+}
+
+func (x *Group_Expand) GetBooks() []*Basic {
+	if x != nil {
+		return x.Books
 	}
 	return nil
 }
@@ -937,7 +912,7 @@ func (x *Model_Toc) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Toc.ProtoReflect.Descriptor instead.
 func (*Model_Toc) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 1}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 1}
 }
 
 func (x *Model_Toc) GetPageIndex() uint32 {
@@ -1010,7 +985,7 @@ func (x *Model_Page) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page.ProtoReflect.Descriptor instead.
 func (*Model_Page) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2}
 }
 
 func (x *Model_Page) GetSrc() string {
@@ -1065,7 +1040,7 @@ func (x *Model_Page_RectAttr) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_RectAttr.ProtoReflect.Descriptor instead.
 func (*Model_Page_RectAttr) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 0}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 0}
 }
 
 func (x *Model_Page_RectAttr) GetItems() []*Model_Page_RectAttr_Item {
@@ -1114,7 +1089,7 @@ func (x *Model_Page_AudioAttr) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_AudioAttr.ProtoReflect.Descriptor instead.
 func (*Model_Page_AudioAttr) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 1}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 1}
 }
 
 func (x *Model_Page_AudioAttr) GetWhole() string {
@@ -1168,7 +1143,7 @@ func (x *Model_Page_AudioTimingAttr) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_AudioTimingAttr.ProtoReflect.Descriptor instead.
 func (*Model_Page_AudioTimingAttr) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 2}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 2}
 }
 
 func (x *Model_Page_AudioTimingAttr) GetTiming() []*Model_Page_AudioTimingAttr_SRT {
@@ -1218,7 +1193,7 @@ func (x *Model_Page_HtmlAudioAttr) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_HtmlAudioAttr.ProtoReflect.Descriptor instead.
 func (*Model_Page_HtmlAudioAttr) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 3}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 3}
 }
 
 func (x *Model_Page_HtmlAudioAttr) GetAudio() string {
@@ -1282,7 +1257,7 @@ func (x *Model_Page_RectAttr_Item) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_RectAttr_Item.ProtoReflect.Descriptor instead.
 func (*Model_Page_RectAttr_Item) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 0, 0}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 0, 0}
 }
 
 func (x *Model_Page_RectAttr_Item) GetRect() *Model_Page_RectAttr_Item_Rect {
@@ -1353,7 +1328,7 @@ func (x *Model_Page_RectAttr_Item_Rect) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_RectAttr_Item_Rect.ProtoReflect.Descriptor instead.
 func (*Model_Page_RectAttr_Item_Rect) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 0, 0, 0}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 0, 0, 0}
 }
 
 func (x *Model_Page_RectAttr_Item_Rect) GetX() float32 {
@@ -1426,7 +1401,7 @@ func (x *Model_Page_AudioTimingAttr_SRT) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_AudioTimingAttr_SRT.ProtoReflect.Descriptor instead.
 func (*Model_Page_AudioTimingAttr_SRT) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 2, 0}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 2, 0}
 }
 
 func (x *Model_Page_AudioTimingAttr_SRT) GetMsBegin() uint32 {
@@ -1497,7 +1472,7 @@ func (x *Model_Page_HtmlAudioAttr_TagSRT) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Model_Page_HtmlAudioAttr_TagSRT.ProtoReflect.Descriptor instead.
 func (*Model_Page_HtmlAudioAttr_TagSRT) Descriptor() ([]byte, []int) {
-	return file_pb_model_proto_rawDescGZIP(), []int{10, 2, 3, 0}
+	return file_pb_model_proto_rawDescGZIP(), []int{9, 2, 3, 0}
 }
 
 func (x *Model_Page_HtmlAudioAttr_TagSRT) GetStart() uint32 {
@@ -1525,47 +1500,40 @@ var File_pb_model_proto protoreflect.FileDescriptor
 
 var file_pb_model_proto_rawDesc = []byte{
 	0x0a, 0x0e, 0x70, 0x62, 0x5f, 0x6d, 0x6f, 0x64, 0x65, 0x6c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x12, 0x04, 0x62, 0x6f, 0x6f, 0x6b, 0x1a, 0x1c, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x22, 0x34, 0x0a, 0x04, 0x52, 0x65, 0x70, 0x6f, 0x12, 0x12, 0x0a, 0x04,
-	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65,
-	0x12, 0x18, 0x0a, 0x07, 0x63, 0x64, 0x6e, 0x55, 0x72, 0x6c, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28,
-	0x09, 0x52, 0x07, 0x63, 0x64, 0x6e, 0x55, 0x72, 0x6c, 0x73, 0x22, 0xa5, 0x02, 0x0a, 0x05, 0x42,
-	0x61, 0x73, 0x69, 0x63, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x7a, 0x68, 0x4e, 0x61,
-	0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x7a, 0x68, 0x4e, 0x61, 0x6d, 0x65,
-	0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18,
-	0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x06, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f,
-	0x76, 0x65, 0x72, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x63, 0x6f, 0x76, 0x65, 0x72,
-	0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0d, 0x52,
-	0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x6e, 0x61, 0x72, 0x72, 0x61, 0x74,
-	0x6f, 0x72, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6e, 0x61, 0x72, 0x72, 0x61, 0x74,
-	0x6f, 0x72, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x73, 0x68, 0x65, 0x72, 0x18,
-	0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x73, 0x68, 0x65, 0x72,
-	0x12, 0x20, 0x0a, 0x0b, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x61, 0x74, 0x65, 0x18,
-	0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x61,
-	0x74, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x64, 0x75, 0x72, 0x61, 0x69, 0x6f, 0x6e, 0x53, 0x75, 0x6d,
-	0x18, 0x0d, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0a, 0x64, 0x75, 0x72, 0x61, 0x69, 0x6f, 0x6e, 0x53,
-	0x75, 0x6d, 0x22, 0x65, 0x0a, 0x07, 0x52, 0x65, 0x73, 0x70, 0x45, 0x72, 0x72, 0x12, 0x12, 0x0a,
-	0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x04, 0x63, 0x6f, 0x64,
-	0x65, 0x12, 0x19, 0x0a, 0x08, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x5f, 0x18, 0x06, 0x20,
-	0x01, 0x28, 0x0d, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x2b, 0x0a, 0x04,
-	0x64, 0x61, 0x74, 0x61, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f,
-	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72,
-	0x75, 0x63, 0x74, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0xcb, 0x01, 0x0a, 0x05, 0x47, 0x72,
-	0x6f, 0x75, 0x70, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x30, 0x0a, 0x08, 0x73, 0x68, 0x6f, 0x77, 0x54,
-	0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x62, 0x6f, 0x6f, 0x6b,
-	0x2e, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x2e, 0x53, 0x68, 0x6f, 0x77, 0x54, 0x79, 0x70, 0x65, 0x52,
-	0x08, 0x73, 0x68, 0x6f, 0x77, 0x54, 0x79, 0x70, 0x65, 0x12, 0x21, 0x0a, 0x05, 0x62, 0x6f, 0x6f,
-	0x6b, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x2e,
-	0x42, 0x61, 0x73, 0x69, 0x63, 0x52, 0x05, 0x62, 0x6f, 0x6f, 0x6b, 0x73, 0x12, 0x1f, 0x0a, 0x03,
-	0x65, 0x72, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x62, 0x6f, 0x6f, 0x6b,
-	0x2e, 0x52, 0x65, 0x73, 0x70, 0x45, 0x72, 0x72, 0x52, 0x03, 0x65, 0x72, 0x72, 0x22, 0x28, 0x0a,
+	0x12, 0x04, 0x62, 0x6f, 0x6f, 0x6b, 0x22, 0x34, 0x0a, 0x04, 0x52, 0x65, 0x70, 0x6f, 0x12, 0x12,
+	0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61,
+	0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x63, 0x64, 0x6e, 0x55, 0x72, 0x6c, 0x73, 0x18, 0x02, 0x20,
+	0x03, 0x28, 0x09, 0x52, 0x07, 0x63, 0x64, 0x6e, 0x55, 0x72, 0x6c, 0x73, 0x22, 0xa5, 0x02, 0x0a,
+	0x05, 0x42, 0x61, 0x73, 0x69, 0x63, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x7a, 0x68,
+	0x4e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x7a, 0x68, 0x4e, 0x61,
+	0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x12, 0x14, 0x0a, 0x05,
+	0x63, 0x6f, 0x76, 0x65, 0x72, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x63, 0x6f, 0x76,
+	0x65, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28,
+	0x0d, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x6e, 0x61, 0x72, 0x72,
+	0x61, 0x74, 0x6f, 0x72, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6e, 0x61, 0x72, 0x72,
+	0x61, 0x74, 0x6f, 0x72, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x73, 0x68, 0x65,
+	0x72, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x73, 0x68,
+	0x65, 0x72, 0x12, 0x20, 0x0a, 0x0b, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65, 0x44, 0x61, 0x74,
+	0x65, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x72, 0x65, 0x6c, 0x65, 0x61, 0x73, 0x65,
+	0x44, 0x61, 0x74, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x64, 0x75, 0x72, 0x61, 0x69, 0x6f, 0x6e, 0x53,
+	0x75, 0x6d, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x0a, 0x64, 0x75, 0x72, 0x61, 0x69, 0x6f,
+	0x6e, 0x53, 0x75, 0x6d, 0x22, 0xe0, 0x01, 0x0a, 0x05, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x12, 0x0e,
+	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12,
+	0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61,
+	0x6d, 0x65, 0x12, 0x30, 0x0a, 0x08, 0x73, 0x68, 0x6f, 0x77, 0x54, 0x79, 0x70, 0x65, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x0e, 0x32, 0x14, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x2e, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x2e, 0x53, 0x68, 0x6f, 0x77, 0x54, 0x79, 0x70, 0x65, 0x52, 0x08, 0x73, 0x68, 0x6f, 0x77,
+	0x54, 0x79, 0x70, 0x65, 0x12, 0x2a, 0x0a, 0x06, 0x65, 0x78, 0x70, 0x61, 0x6e, 0x64, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x2e, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x2e, 0x45, 0x78, 0x70, 0x61, 0x6e, 0x64, 0x52, 0x06, 0x65, 0x78, 0x70, 0x61, 0x6e, 0x64,
+	0x1a, 0x2b, 0x0a, 0x06, 0x45, 0x78, 0x70, 0x61, 0x6e, 0x64, 0x12, 0x21, 0x0a, 0x05, 0x62, 0x6f,
+	0x6f, 0x6b, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x62, 0x6f, 0x6f, 0x6b,
+	0x2e, 0x42, 0x61, 0x73, 0x69, 0x63, 0x52, 0x05, 0x62, 0x6f, 0x6f, 0x6b, 0x73, 0x22, 0x28, 0x0a,
 	0x08, 0x53, 0x68, 0x6f, 0x77, 0x54, 0x79, 0x70, 0x65, 0x12, 0x0d, 0x0a, 0x09, 0x4f, 0x6e, 0x65,
 	0x43, 0x6f, 0x6c, 0x75, 0x6d, 0x6e, 0x10, 0x00, 0x12, 0x0d, 0x0a, 0x09, 0x54, 0x77, 0x6f, 0x43,
 	0x6f, 0x6c, 0x75, 0x6d, 0x6e, 0x10, 0x01, 0x22, 0xb1, 0x01, 0x0a, 0x07, 0x4c, 0x69, 0x73, 0x74,
@@ -1713,15 +1681,15 @@ var file_pb_model_proto_goTypes = []any{
 	(Group_ShowType)(0),                     // 0: book.Group.ShowType
 	(*Repo)(nil),                            // 1: book.Repo
 	(*Basic)(nil),                           // 2: book.Basic
-	(*RespErr)(nil),                         // 3: book.RespErr
-	(*Group)(nil),                           // 4: book.Group
-	(*ListReq)(nil),                         // 5: book.ListReq
-	(*ItemReq)(nil),                         // 6: book.ItemReq
-	(*RepoListResp)(nil),                    // 7: book.RepoListResp
-	(*GroupListResp)(nil),                   // 8: book.GroupListResp
-	(*BookListResp)(nil),                    // 9: book.BookListResp
-	(*FileInfo)(nil),                        // 10: book.FileInfo
-	(*Model)(nil),                           // 11: book.Model
+	(*Group)(nil),                           // 3: book.Group
+	(*ListReq)(nil),                         // 4: book.ListReq
+	(*ItemReq)(nil),                         // 5: book.ItemReq
+	(*RepoListResp)(nil),                    // 6: book.RepoListResp
+	(*GroupListResp)(nil),                   // 7: book.GroupListResp
+	(*BookListResp)(nil),                    // 8: book.BookListResp
+	(*FileInfo)(nil),                        // 9: book.FileInfo
+	(*Model)(nil),                           // 10: book.Model
+	(*Group_Expand)(nil),                    // 11: book.Group.Expand
 	nil,                                     // 12: book.Model.AdditionalInfoEntry
 	(*Model_Toc)(nil),                       // 13: book.Model.Toc
 	(*Model_Page)(nil),                      // 14: book.Model.Page
@@ -1733,31 +1701,29 @@ var file_pb_model_proto_goTypes = []any{
 	(*Model_Page_RectAttr_Item_Rect)(nil),   // 20: book.Model.Page.RectAttr.Item.Rect
 	(*Model_Page_AudioTimingAttr_SRT)(nil),  // 21: book.Model.Page.AudioTimingAttr.SRT
 	(*Model_Page_HtmlAudioAttr_TagSRT)(nil), // 22: book.Model.Page.HtmlAudioAttr.TagSRT
-	(*structpb.Struct)(nil),                 // 23: google.protobuf.Struct
 }
 var file_pb_model_proto_depIdxs = []int32{
-	23, // 0: book.RespErr.data:type_name -> google.protobuf.Struct
-	0,  // 1: book.Group.showType:type_name -> book.Group.ShowType
-	2,  // 2: book.Group.books:type_name -> book.Basic
-	3,  // 3: book.Group.err:type_name -> book.RespErr
-	1,  // 4: book.RepoListResp.items:type_name -> book.Repo
-	4,  // 5: book.GroupListResp.items:type_name -> book.Group
-	2,  // 6: book.BookListResp.items:type_name -> book.Basic
-	2,  // 7: book.Model.basicInfo:type_name -> book.Basic
-	10, // 8: book.Model.fileInfo:type_name -> book.FileInfo
-	13, // 9: book.Model.toc:type_name -> book.Model.Toc
-	14, // 10: book.Model.pages:type_name -> book.Model.Page
-	12, // 11: book.Model.additionalInfo:type_name -> book.Model.AdditionalInfoEntry
-	13, // 12: book.Model.Toc.children:type_name -> book.Model.Toc
-	19, // 13: book.Model.Page.RectAttr.items:type_name -> book.Model.Page.RectAttr.Item
-	21, // 14: book.Model.Page.AudioTimingAttr.timing:type_name -> book.Model.Page.AudioTimingAttr.SRT
-	22, // 15: book.Model.Page.HtmlAudioAttr.timing:type_name -> book.Model.Page.HtmlAudioAttr.TagSRT
-	20, // 16: book.Model.Page.RectAttr.Item.rect:type_name -> book.Model.Page.RectAttr.Item.Rect
-	17, // [17:17] is the sub-list for method output_type
-	17, // [17:17] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	0,  // 0: book.Group.showType:type_name -> book.Group.ShowType
+	11, // 1: book.Group.expand:type_name -> book.Group.Expand
+	1,  // 2: book.RepoListResp.items:type_name -> book.Repo
+	3,  // 3: book.GroupListResp.items:type_name -> book.Group
+	2,  // 4: book.BookListResp.items:type_name -> book.Basic
+	2,  // 5: book.Model.basicInfo:type_name -> book.Basic
+	9,  // 6: book.Model.fileInfo:type_name -> book.FileInfo
+	13, // 7: book.Model.toc:type_name -> book.Model.Toc
+	14, // 8: book.Model.pages:type_name -> book.Model.Page
+	12, // 9: book.Model.additionalInfo:type_name -> book.Model.AdditionalInfoEntry
+	2,  // 10: book.Group.Expand.books:type_name -> book.Basic
+	13, // 11: book.Model.Toc.children:type_name -> book.Model.Toc
+	19, // 12: book.Model.Page.RectAttr.items:type_name -> book.Model.Page.RectAttr.Item
+	21, // 13: book.Model.Page.AudioTimingAttr.timing:type_name -> book.Model.Page.AudioTimingAttr.SRT
+	22, // 14: book.Model.Page.HtmlAudioAttr.timing:type_name -> book.Model.Page.HtmlAudioAttr.TagSRT
+	20, // 15: book.Model.Page.RectAttr.Item.rect:type_name -> book.Model.Page.RectAttr.Item.Rect
+	16, // [16:16] is the sub-list for method output_type
+	16, // [16:16] is the sub-list for method input_type
+	16, // [16:16] is the sub-list for extension type_name
+	16, // [16:16] is the sub-list for extension extendee
+	0,  // [0:16] is the sub-list for field type_name
 }
 
 func init() { file_pb_model_proto_init() }
@@ -1791,18 +1757,6 @@ func file_pb_model_proto_init() {
 			}
 		}
 		file_pb_model_proto_msgTypes[2].Exporter = func(v any, i int) any {
-			switch v := v.(*RespErr); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_pb_model_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*Group); i {
 			case 0:
 				return &v.state
@@ -1814,7 +1768,7 @@ func file_pb_model_proto_init() {
 				return nil
 			}
 		}
-		file_pb_model_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_pb_model_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*ListReq); i {
 			case 0:
 				return &v.state
@@ -1826,7 +1780,7 @@ func file_pb_model_proto_init() {
 				return nil
 			}
 		}
-		file_pb_model_proto_msgTypes[5].Exporter = func(v any, i int) any {
+		file_pb_model_proto_msgTypes[4].Exporter = func(v any, i int) any {
 			switch v := v.(*ItemReq); i {
 			case 0:
 				return &v.state
@@ -1838,7 +1792,7 @@ func file_pb_model_proto_init() {
 				return nil
 			}
 		}
-		file_pb_model_proto_msgTypes[6].Exporter = func(v any, i int) any {
+		file_pb_model_proto_msgTypes[5].Exporter = func(v any, i int) any {
 			switch v := v.(*RepoListResp); i {
 			case 0:
 				return &v.state
@@ -1850,7 +1804,7 @@ func file_pb_model_proto_init() {
 				return nil
 			}
 		}
-		file_pb_model_proto_msgTypes[7].Exporter = func(v any, i int) any {
+		file_pb_model_proto_msgTypes[6].Exporter = func(v any, i int) any {
 			switch v := v.(*GroupListResp); i {
 			case 0:
 				return &v.state
@@ -1862,7 +1816,7 @@ func file_pb_model_proto_init() {
 				return nil
 			}
 		}
-		file_pb_model_proto_msgTypes[8].Exporter = func(v any, i int) any {
+		file_pb_model_proto_msgTypes[7].Exporter = func(v any, i int) any {
 			switch v := v.(*BookListResp); i {
 			case 0:
 				return &v.state
@@ -1874,7 +1828,7 @@ func file_pb_model_proto_init() {
 				return nil
 			}
 		}
-		file_pb_model_proto_msgTypes[9].Exporter = func(v any, i int) any {
+		file_pb_model_proto_msgTypes[8].Exporter = func(v any, i int) any {
 			switch v := v.(*FileInfo); i {
 			case 0:
 				return &v.state
@@ -1886,8 +1840,20 @@ func file_pb_model_proto_init() {
 				return nil
 			}
 		}
-		file_pb_model_proto_msgTypes[10].Exporter = func(v any, i int) any {
+		file_pb_model_proto_msgTypes[9].Exporter = func(v any, i int) any {
 			switch v := v.(*Model); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_pb_model_proto_msgTypes[10].Exporter = func(v any, i int) any {
+			switch v := v.(*Group_Expand); i {
 			case 0:
 				return &v.state
 			case 1:

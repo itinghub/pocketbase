@@ -51,7 +51,7 @@ func pb_toBookGroup(groupRecord *models.Record, expanedBooks []*models.Record) *
 	for i, book := range expanedBooks {
 		protoBooks[i] = pb_toBookBasic(book)
 	}
-	group.Books = protoBooks
+	// group.Expand =Books = protoBooks
 	return group
 }
 
